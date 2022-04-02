@@ -68,7 +68,7 @@ Create graph workspace (user needs write permissions to workspace folder)
 lb create graph
 ```
 
-Navigate to folder with graph.dat file
+Navigate to folder with `graph.dat` file
 
 ```
 cd /home/mygraph/
