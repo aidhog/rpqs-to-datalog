@@ -16,7 +16,7 @@ The main class is `ConvertRPQsToDatalog`. It assumes as input a file with intege
 
 etc. It writes its output to a output directory, with a file containing a Datalog programme for each input RPQ.
 
-The software was written to create Datalog programmes compatible with [https://developer.logicblox.com/](LogicBlox). We assume a graph in the form of a ternary predicate `E` of integers, and a unary `V` predicate for nodes. We will describe loading a graph into LogicBlox below in a manner compatible with the output programmes produced by this library. 
+The software was written to create Datalog programmes compatible with [LogicBlox](https://developer.logicblox.com/). We assume a graph in the form of a ternary predicate `E` of integers, and a unary `V` predicate for nodes. We will describe loading a graph into LogicBlox below in a manner compatible with the output programmes produced by this library. 
 
 It can however be adapted to write out programmes in other syntaxes for other systems by changing the `toString()` methods and constants in the `Atom`, `Rule`, `GraphAtom` and `NoteAtom` classes.
 
