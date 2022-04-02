@@ -1,5 +1,5 @@
 # rpqs-to-datalog
-A Java library for converting RPQs (SPARQL property paths) to positive Datalog.
+A developmental Java library for converting RPQs (SPARQL property paths) to positive Datalog.
 
 The code provides some optimisations to convert programs to linear recursion, push constants towards base predicated, perform inlining of redundany intermediary predicates, and prune tautological atoms and duplicate rules.
 
