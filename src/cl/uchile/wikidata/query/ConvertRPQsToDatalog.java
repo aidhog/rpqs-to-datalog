@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import org.apache.jena.graph.Node;
 import org.apache.jena.query.Query;
@@ -27,13 +26,8 @@ import cl.uchile.wikidata.query.opt.NodeOptimiser;
 import cl.uchile.wikidata.query.opt.PruneOptimiser;
 
 public class ConvertRPQsToDatalog {
-    public static String INPUT = "C:\\Users\\aidhog\\Documents\\Research\\papers\\2021\\ring-paths\\scripts\\lb\\paths-enumerated-nolits.tsv";
-	// public static String INPUT = "C:\\Users\\aidhog\\Documents\\Research\\papers\\2021\\ring-paths\\scripts\\lb\\paths-test.tsv";
-	// public static String OUTPUT = "C:\\Users\\aidhog\\Documents\\Research\\papers\\2021\\ring-paths\\scripts\\lb\\datalog\\test\\";
-    public static String OUTPUT = "C:\\Users\\aidhog\\Documents\\Research\\papers\\2021\\ring-paths\\scripts\\lb\\datalog\\hi-l-pr\\";
-	
-    // public static String FIX = "C:\\Users\\aidhog\\Documents\\Research\\papers\\2021\\ring-paths\\scripts\\lb\\datalog\\fix.txt";
-	public static String FIX = null;
+    public static String INPUT = "paths-input.tsv";
+    public static String OUTPUT = "datalog-output-dir";
 	
 	public static String OUTPUT_PREFIX = "q";
 	public static String OUTPUT_SUFFIX = ".logic";
@@ -49,21 +43,6 @@ public class ConvertRPQsToDatalog {
 		File f = new File(OUTPUT);
 		f.mkdirs();
 		
-		
-		HashSet<Integer> fix = null;
-		if(FIX != null) {
-			fix = new HashSet<Integer>();
-			BufferedReader br = new BufferedReader(new FileReader(FIX));
-			String line = null;
-			while((line = br.readLine())!=null) {
-				line = line.trim();
-				if(!line.isEmpty()) {
-					fix.add(Integer.parseInt(line));
-				}
-			}
-			br.close();
-		}
-
 		BufferedReader br = new BufferedReader(new FileReader(INPUT));
 
 		String line = null;
@@ -74,10 +53,6 @@ public class ConvertRPQsToDatalog {
 			if(!trim.isEmpty() && !trim.startsWith("#")) {
 				read++;
 				
-				if(fix!=null && !fix.contains(read)) {
-					continue;
-				}
-
 				if(read % SAMPLE == 0) {
 					String[] split = line.split(" ");
 
