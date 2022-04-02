@@ -27,7 +27,7 @@ ArrayList<Rule> rules = opTransform((OpPath)op);
 Program p = new Program(rules);
 ```
 
-This is followed by a number of different optimisers that transform the program. Here you can enable to disable optimisations by commenting them out, chaining them in different orders, etc. 
+This is followed by a number of different optimisers that transform the program. Here you can enable or disable optimisations by commenting them out, chaining them in different orders, etc. 
 
 This optimisers were designed with RPQs in mind, and were checked on around 2000 RPQs with respect to the number of results returned. They may or may not work for general Datalog programmes (not tested). 
 
