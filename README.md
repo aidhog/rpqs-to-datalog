@@ -5,9 +5,9 @@ The code provides some optimisations to convert programs to linear recursion, pu
 
 The code is developmental, not intended for production as-is. The project is structured as a classical Java project (dependencies hardcopied in `lib/`, source in `src/`). Pull requests welcome for mavenisation, etc.
 
-## Input RPQs and output format
+## Input RPQs, output format and optimisations
 
-The main class is ConvertRPQsToDatalog. It assumes as input a file with integer encoded RPQs on each line in SPARQL-like syntax of the form:
+The main class is `ConvertRPQsToDatalog`. It assumes as input a file with integer encoded RPQs on each line in SPARQL-like syntax of the form:
 
 ```
 1 2/3* ?y .
@@ -19,6 +19,17 @@ etc. It writes its output to a output directory, with a file containing a Datalo
 The software was written to create Datalog programmes compatible with [https://developer.logicblox.com/](LogicBlox). We assume a graph in the form of a ternary predicate `E` of integers, and a unary `V` predicate for nodes. We will describe loading a graph into LogicBlox below in a manner compatible with the output programmes produced by this library. 
 
 It can however be adapted to write out programmes in other syntaxes for other systems by changing the `toString()` methods and constants in the `Atom`, `Rule`, `GraphAtom` and `NoteAtom` classes.
+
+In the `ConvertRPQsToDatalog`, the following code creates the base translation of RPQs to Datalog:
+
+```
+ArrayList<Rule> rules = opTransform((OpPath)op);
+Program p = new Program(rules);
+```
+
+This is followed by a number of different optimisers that transform the program. Here you can enable to disable optimisations by commenting them out, chaining them in different orders, etc. 
+
+This optimisers were designed with RPQs in mind, and were checked on around 2000 RPQs with respect to the number of results returned. They may or may not work for general Datalog programmes (not tested). 
 
 ## Loading graphs into LogicBlox
 
