@@ -33,11 +33,11 @@ This optimisers were designed with RPQs in mind, and were checked on around 2000
 
 ## Loading graphs into LogicBlox
 
-We assume a dictionary-encoded file `graph.dat` with comma-separated triples of integers of the form:
+We assume a dictionary-encoded file `graph.dat` with space-separated triples (or you can change the delimiter later) of integers of the form:
 
 ```
-2,1,3
-4,2,5
+2 1 3
+4 2 5
 ...
 ```
 
@@ -93,11 +93,13 @@ Create ternary EDB predicate `E` for edges and IDB predicate `V` for vertices
 addblock --name gschema 'E(s,p,o) -> int(s), int(p), int(o). lang:derivationType[`E] = "Extensional". V(n) <- E(n,_,_);E(_,_,n).'
 ```
 
-Load edges from .dat file into predicate E and save load time in seconds to `loadtime.dat` in current directory.
+Load edges from .dat file into predicate E and save load time in seconds to `loadtime.dat` in current directory. You can change the value of the physical delimiter here if you need to.
 
 ```
 exec --duration --duration-file load.dat '_in(offset;s,p,o) -> int(offset), int(s), int(p), int(o). lang:physical:filePath[`_in] = "graph.dat". lang:physical:delimiter[`_in] = " ". lang:physical:fileMode[`_in] = "import". +E(s,p,o) <- _in(_;s,p,o).'
 ```
+
+Loading one billion edges took around 10 minutes.
 
 Leave lb terminal.
 
@@ -110,6 +112,8 @@ Request build of all index permutations that might be useful (POS, PSO, SPO, OPS
 ```
 lb batch-script --duration --duration-file index.dat -t graph 'addIndex E/1_2_0 E/1_0_2 E/0_1_2 E/2_1_0 V/0'
 ```
+
+Indexing one billion edges took around 20 minutes.
 
 Open lb terminal to test a query.
 
