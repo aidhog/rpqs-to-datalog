@@ -130,7 +130,7 @@ query --duration --duration-file testq.dat '_(s) <- E(s,1,_).'
 In order to run a query programme in a file `q.logic` as produced by this library (with a timeout), exit the lb terminal and try:
 
 ```
-lb query --timeout 60000 --duration --duration-file q.dat --file q.logic wdtest
+lb query --timeout 60000 --duration --duration-file q.dat --file q.logic graph
 ```
 
 The time taken in seconds will be written to `q.dat`. Results will be streamed to standard out.
