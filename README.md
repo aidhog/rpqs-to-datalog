@@ -3,24 +3,34 @@ A Java library for converting RPQs (SPARQL property paths) to positive Datalog.
 
 The code provides some optimisations to convert programs to linear recursion, push constants towards base predicated, perform inlining of redundany intermediary predicates, and prune tautological atoms and duplicate rules.
 
-The code is developmental, not intended for production as-is. The project is structured as a classical Java project (dependencies hardcopied in lib/, source in src/). Pull requests welcome for mavenisation, etc.
+The code is developmental, not intended for production as-is. The project is structured as a classical Java project (dependencies hardcopied in `lib/`, source in `src/`). Pull requests welcome for mavenisation, etc.
 
 ## Input RPQs and output format
 
 The main class is ConvertRPQsToDatalog. It assumes as input a file with integer encoded RPQs on each line in SPARQL-like syntax of the form:
 
+```
 1 2/3* ?y .
 ?x ^4|5 ?y .
+```
 
 etc. It writes its output to a output directory, with a file containing a Datalog programme for each input RPQ.
 
 The software was written to create Datalog programmes compatible with [https://developer.logicblox.com/](LogicBlox). We assume a graph in the form of a ternary predicate `E` of integers, and a unary `V` predicate for nodes. We will describe loading a graph into LogicBlox below in a manner compatible with the output programmes produced by this library. 
 
-It can however be adapted to write out programmes in other syntaxes by changing the `toString` methods in the `Atom`, `Rule`, `GraphAtom` and `NoteAtom` classes.
+It can however be adapted to write out programmes in other syntaxes for other systems by changing the `toString()` methods and constants in the `Atom`, `Rule`, `GraphAtom` and `NoteAtom` classes.
 
 ## Loading graphs into LogicBlox
 
-We assume you have acquired the code for LogicBlox and installed it. We've used LogicBloc v.4.40.0.
+We assume a dictionary-encoded file `graph.dat` with comma-separated triples of integers of the form:
+
+```
+2,1,3
+4,2,5
+...
+```
+
+We assume you have acquired the code for LogicBlox and installed it. We've used LogicBloc v.4.40.0. The load was tested for a Wikidata graph of around 1 billion triples. The process of loading the graph into LogicBlox is as follows.
 
 See if LogicBlox is up and running:
 
