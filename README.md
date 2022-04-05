@@ -1,7 +1,7 @@
 # rpqs-to-datalog
 A developmental Java library for converting RPQs (SPARQL property paths) to positive Datalog.
 
-The code provides some optimisations to convert programs to linear recursion, push constants towards base predicated, perform inlining of redundany intermediary predicates, and prune tautological atoms and duplicate rules.
+The code provides some optimisations to convert programs to linear recursion, push constants towards base predicated, perform inlining of redundant intermediary predicates, and prune tautological atoms and duplicate rules.
 
 The code is developmental, not intended for production as-is. The project is structured as a classical Java project (dependencies hardcopied in `lib/`, source in `src/`). Pull requests welcome for mavenisation, etc.
 
